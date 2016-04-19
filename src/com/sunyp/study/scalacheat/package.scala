@@ -1,5 +1,6 @@
 package com.sunyp.study
 
+
 /**
   * curry的两种写法,第2种需要立即提供所有参数
   * Created by sunyp on 16/4/18.
@@ -53,8 +54,8 @@ package object scalacheat_FuncCurry extends App {
 
   def mapmake[T](g: T => T, i: T, seq: List[T]) = seq.map(g)
 
-  var curried = (mapmake[Int] _).curried
-  var func = curried({
+  val curried = (mapmake[Int] _).curried
+  val func = curried({
     _ * 2
   })(3)
   println(s"func=${func(List(1, 2, 3, 4, 5))}")
@@ -84,35 +85,76 @@ package object scalacheat_varArgs extends App {
 
 }
 
-package object scalacheat_class extends App {
-  println("=========scalacheat_class============")
+
+package object scalacheat_DataStrut extends App {
+  println("=========scalacheat_DataStrut 数据结构============")
+
+  (1 to 5).foreach {
+    println
+  }
+  println(s"ce=${1 to 5 by 2}")
+
+  1 until 6 foreach { (x) => println(x) }
+//  1 until 6 foreach println
+
+  var (x, y, z) = (1, 2, 3)
+  println(x + ":" + y + ":" + z)
+  // 元素 + 列表  = 新列表
+  println(1 :: List(2, 3))
+}
+
+package object classDefine {
 
   class privateVar(private var var用了private_var修饰后这个是私有变量成员: String)
 
   class publicVar(var 只用var修饰后这个是公有变量成员: String)
 
   class privateValDefault(没有private_val修饰符后这个是私有常量成员: String) {
-    没有private_val修饰符后这个是私有常量成员
+    private val 这个成员与构造方法中的一样_无法被外部所识别到_只能在内部使用 = 没有private_val修饰符后这个是私有常量成员
   }
 
   class privateVal(private val 修饰符后这个是私有常量成员: String)
 
   class publicVal(val 只用val修饰后这个是公有常量成员: String)
 
+}
 
-  // new privateVal("会报错,无法直接引用私有成员").修饰符后这个是私有常量成员 会报错,无法直接引用私有成员
-  new publicVar("可以直接引用公有成员").只用var修饰后这个是公有变量成员
+package object scalacheat_class extends App {
+  println("=========scalacheat_class类定义及使用===========")
+
+  //引入所有类,除了privateVal和privateVar类不被引入
+  import com.sunyp.study.classDefine.{privateVal => _, privateVar => _, _}
+
+
+  println(new publicVar("可以直接引用公有变量成员").只用var修饰后这个是公有变量成员)
+  println(new publicVal("可以直接引用公有常量成员").只用val修饰后这个是公有常量成员)
+
+  //   new privateVar("会报错,无法直接引用私有成员").var用了private_var修饰后这个是私有变量成员
   //  new privateValDefault("会报错,无法被.号识别出成员").没有private_val修饰符后这个是私有常量成员
+  //  new privateValDefault("会报错,无法被.号识别出成员").这个成员与构造方法中的一样_无法被外部所识别到_只能在内部使用
   //  new privateVal("会报错,无法直接引用私有成员").修饰符后这个是私有常量成员
-  new publicVal("可以直接引用公有成员").只用val修饰后这个是公有常量成员
+
+
+  class C(var x: Int) {
+    assert(x > 0, "positive please")
+    var y = x
+    val readonly = 5
+    private var secret = 1
+
+    //    def this = this(42)
+  }
+
+  val c = new C(1)
+  c.x = 3
+  c.y = 4
 }
 
 package object scalacheat_object extends App {
-  println("=========scalacheat_object============")
+  println("=========scalacheat_object对象============")
 
   trait Logger {
     def log(message: String) {
-      println(s"message=$message")
+      println(s"日志Trait帮你打印 message=$message")
     }
   }
 
@@ -121,6 +163,18 @@ package object scalacheat_object extends App {
 
     def redo(): Unit
   }
+
+  //伴生对象 companion object
+  object UndoableAction {
+
+    def apply(d: String) = new UndoableAction(d) {
+      override def redo(): Unit = {}
+
+      override def undo(): String = s"伴生对象的生成类对象:$description"
+    }
+  }
+
+  println(UndoableAction("hello") undo())
 
   // 继承自抽象类的例子
   object DoNothingAction extends UndoableAction("Do nothing") {
@@ -131,7 +185,7 @@ package object scalacheat_object extends App {
 
   val action = Map("open" -> DoNothingAction, "save" -> DoNothingAction)
 
-  println(DoNothingAction.undo())
+  println(action.get("open").get undo())
 
   // 乱入 特质
   class Joke(var a: String)
