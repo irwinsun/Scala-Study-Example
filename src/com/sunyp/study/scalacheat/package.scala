@@ -51,10 +51,12 @@ package object scalacheat_FuncCurry extends App {
   println(s"normer(R(2))=${normer(R(2))}")
 
 
-  def mapmake[T](g: T => T, i:T, seq: List[T]) = seq.map(g)
+  def mapmake[T](g: T => T, i: T, seq: List[T]) = seq.map(g)
 
   var curried = (mapmake[Int] _).curried
-  var func = curried({ _ * 2})(3)
+  var func = curried({
+    _ * 2
+  })(3)
   println(s"func=${func(List(1, 2, 3, 4, 5))}")
 }
 
@@ -71,5 +73,71 @@ package object scalacheat_Pipeline extends App {
       _ * 2
     }
   }")
+}
 
+package object scalacheat_varArgs extends App {
+  println("=========scalacheat_varArgs============")
+
+  def sum(args: Int*) = args.sum
+
+  println(sum(1, 2, 3, 4, 5))
+
+}
+
+package object scalacheat_class extends App {
+  println("=========scalacheat_class============")
+
+  class privateVar(private var var用了private_var修饰后这个是私有变量成员: String)
+
+  class publicVar(var 只用var修饰后这个是公有变量成员: String)
+
+  class privateValDefault(没有private_val修饰符后这个是私有常量成员: String) {
+    没有private_val修饰符后这个是私有常量成员
+  }
+
+  class privateVal(private val 修饰符后这个是私有常量成员: String)
+
+  class publicVal(val 只用val修饰后这个是公有常量成员: String)
+
+
+  // new privateVal("会报错,无法直接引用私有成员").修饰符后这个是私有常量成员 会报错,无法直接引用私有成员
+  new publicVar("可以直接引用公有成员").只用var修饰后这个是公有变量成员
+  //  new privateValDefault("会报错,无法被.号识别出成员").没有private_val修饰符后这个是私有常量成员
+  //  new privateVal("会报错,无法直接引用私有成员").修饰符后这个是私有常量成员
+  new publicVal("可以直接引用公有成员").只用val修饰后这个是公有常量成员
+}
+
+package object scalacheat_object extends App {
+  println("=========scalacheat_object============")
+
+  trait Logger {
+    def log(message: String) {
+      println(s"message=$message")
+    }
+  }
+
+  abstract class UndoableAction(val description: String) {
+    def undo(): String
+
+    def redo(): Unit
+  }
+
+  // 继承自抽象类的例子
+  object DoNothingAction extends UndoableAction("Do nothing") {
+    override def undo() = description
+
+    override def redo() {}
+  }
+
+  val action = Map("open" -> DoNothingAction, "save" -> DoNothingAction)
+
+  println(DoNothingAction.undo())
+
+  // 乱入 特质
+  class Joke(var a: String)
+
+  val nothing = new Joke("jacky")
+  val logNothing = new Joke("jacky") with Logger
+
+  logNothing.log(logNothing.a)
 }
