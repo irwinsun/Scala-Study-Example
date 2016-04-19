@@ -1,4 +1,4 @@
 .idea
-Study.iml
+*.iml
 *.class
 out
