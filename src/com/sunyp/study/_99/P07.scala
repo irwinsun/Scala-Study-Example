@@ -22,13 +22,4 @@ object P07 extends App {
     case as: A => List(as)
   }
 
-
-  println(nestedNumbers.flatMap(x => x.map(_ * 1)))
-  println(nestedNumbers.map((x) => x.map(_ * 2)).flatten)
-
-  println((1 to 5).filter {
-    _ % 2 == 0
-  }.map {
-    _ * 2
-  })
 }
