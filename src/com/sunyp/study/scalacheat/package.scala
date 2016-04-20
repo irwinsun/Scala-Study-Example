@@ -89,21 +89,44 @@ package object scalacheat_varArgs extends App {
 package object scalacheat_DataStrut extends App {
   println("=========scalacheat_DataStrut 数据结构============")
 
-  (1 to 5).foreach {
-    println
+  (1 to 2).foreach {
+    x => print(x + ",")
   }
-  println(s"ce=${1 to 5 by 2}")
+  println((1 to 2).map({ x => x * 2 }))
 
-  1 until 6 foreach { (x) => println(x) }
-//  1 until 6 foreach println
+  println(s"\nce=${1 to 5 by 2}")
+
+  1 until 6 foreach { (x) => print(x + " ") }
+  //  1 until 6 foreach println
 
   var (x, y, z) = (1, 2, 3)
   println(x + ":" + y + ":" + z)
   // 元素 + 列表  = 新列表
   println(1 :: List(2, 3))
+
 }
 
-package object classDefine {
+package object scalacheat_Control {
+  println("=========scalacheat_Control 控制结构============")
+
+  val xs = List(1, 2, 3, 4, 5)
+
+  import scala.util.control.Breaks._
+
+  breakable {
+    //防止break的异常BreakControl
+    for (x <- xs) {
+      if (Math.random < 0.81) {
+        println("break")
+        break //break是一个方法, 不是语法
+      }
+    }
+  }
+}
+
+package
+
+object classDefine {
 
   class privateVar(private var var用了private_var修饰后这个是私有变量成员: String)
 
@@ -119,11 +142,13 @@ package object classDefine {
 
 }
 
-package object scalacheat_class extends App {
+package
+
+object scalacheat_class extends App {
   println("=========scalacheat_class类定义及使用===========")
 
   //引入所有类,除了privateVal和privateVar类不被引入
-  import com.sunyp.study.classDefine.{privateVal => _, privateVar => _, _}
+  import com.sunyp.study.classDefine.{privateVal => _, privateVar => _}
 
 
   println(new publicVar("可以直接引用公有变量成员").只用var修饰后这个是公有变量成员)
@@ -149,7 +174,9 @@ package object scalacheat_class extends App {
   c.y = 4
 }
 
-package object scalacheat_object extends App {
+package
+
+object scalacheat_object extends App {
   println("=========scalacheat_object对象============")
 
   trait Logger {
