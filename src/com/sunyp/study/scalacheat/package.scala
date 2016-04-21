@@ -148,7 +148,7 @@ object scalacheat_class extends App {
   println("=========scalacheat_class类定义及使用===========")
 
   //引入所有类,除了privateVal和privateVar类不被引入
-  import com.sunyp.study.classDefine.{privateVal => _, privateVar => _}
+  import com.sunyp.study.classDefine.{privateVal => _, privateVar => _,_}
 
 
   println(new publicVar("可以直接引用公有变量成员").只用var修饰后这个是公有变量成员)
