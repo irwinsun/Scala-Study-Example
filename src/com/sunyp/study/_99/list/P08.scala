@@ -1,4 +1,4 @@
-package com.sunyp.study._99
+package com.sunyp.study._99.list
 
 import scala.collection.mutable.ListBuffer
 
