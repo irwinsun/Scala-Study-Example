@@ -12,14 +12,16 @@ import scala.concurrent.forkjoin.ThreadLocalRandom._
   */
 object P24 extends App {
 
+
   val M = 49
   val cnt = 6
 
-
-  def lotto(count: Int, M: Int): List[Int] = {
-    if (count <= 0) Nil
-    else current().nextInt(M) :: lotto(count - 1, M)
-  }
+  def lotto(count: Int, M: Int): List[Int] = if (count <= 0) Nil else current().nextInt(M) :: lotto(count - 1, M)
 
   println(s"lotto($cnt,$M)=${lotto(cnt, M)}")
+
+  import P23.randomSelect
+
+  println(s"lotto($cnt,$M)=${randomSelect(cnt, List.range(1, M + 1))}")
+
 }
