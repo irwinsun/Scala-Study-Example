@@ -1,6 +1,6 @@
 package com.sunyp.study._99.list
 
-import scala.concurrent.forkjoin.ThreadLocalRandom
+import com.sunyp.study.utils.ListUtils
 
 /**
   * Created by sunyp on 16/4/23.
@@ -16,16 +16,6 @@ object P23 extends App {
 
   val cnt = 3
 
-  import P20._
 
-  def randomSelect[A](count: Int, ls: List[A]): List[A] = {
-    if (count <= 0)
-      Nil
-    else {
-      val (rest, e) = removeAt(ThreadLocalRandom.current().nextInt(ls.length), ls)
-      e :: randomSelect(count - 1, rest)
-    }
-  }
-
-  println(s"randomSelect($cnt,$lst)=${randomSelect(cnt, lst)}")
+  println(s"randomSelect($cnt,$lst)=${ListUtils.randomSelect(cnt, lst)}")
 }

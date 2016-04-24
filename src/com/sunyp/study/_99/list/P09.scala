@@ -1,5 +1,7 @@
 package com.sunyp.study._99.list
 
+import com.sunyp.study.utils.ListUtils
+
 /**
   * Created by sunyp on 16/4/21.
   *
@@ -15,19 +17,19 @@ object P09 extends App {
   val lst = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
 
 
-  def pack[A](ls: List[A]): List[List[A]] = {
-    if (ls == null || ls.isEmpty)
-      List(List())
-    else {
-      val (headLst, next) = ls span {
-        _ == ls.head
-      }
-      if (next == Nil)
-        List(headLst)
-      else
-        headLst :: pack(next)
-    }
-  }
+//  def pack[A](ls: List[A]): List[List[A]] = {
+//    if (ls == null || ls.isEmpty)
+//      List(List())
+//    else {
+//      val (headLst, next) = ls span {
+//        _ == ls.head
+//      }
+//      if (next == Nil)
+//        List(headLst)
+//      else
+//        headLst :: pack(next)
+//    }
+//  }
 
-  println(s"pack($lst)=${pack(lst)}")
+  println(s"pack($lst)=${ListUtils.pack(lst)}")
 }

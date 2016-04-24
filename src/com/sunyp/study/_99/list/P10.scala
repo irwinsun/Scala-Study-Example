@@ -1,5 +1,7 @@
 package com.sunyp.study._99.list
 
+import com.sunyp.study.utils.ListUtils
+
 /**
   * Created by sunyp on 16/4/21.
   *
@@ -16,11 +18,11 @@ object P10 extends App {
 
   val lst = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
 
+//
+//  def encode[A](ls: List[A]): List[(Int, A)] = {
+//    ListUtils.pack(ls).map(x => (x.size, x.head))
+//  }
 
-  def encode[A](ls: List[A]): List[(Int, A)] = {
-    P09.pack(ls).map(x => (x.size, x.head))
-  }
 
-
-  println(s"encode($lst)=${encode(lst)}")
+  println(s"encode($lst)=${ListUtils.encode(lst, {(x:List[Symbol]) => (x.size, x.head)})}")
 }

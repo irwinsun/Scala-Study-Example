@@ -1,6 +1,7 @@
 package com.sunyp.study._99.list
 
-import com.sunyp.study._99.list.P23.randomSelect
+import com.sunyp.study.utils.ListUtils
+
 
 /**
   * Created by sunyp on 16/4/23.
@@ -16,7 +17,7 @@ object P25 extends App {
 
   val lst = List('a, 'b, 'c, 'd, 'e, 'f)
 
-  def randomPermute[A](ls: List[A]): List[A] = randomSelect(ls.length, ls)
+  def randomPermute[A](ls: List[A]): List[A] = ListUtils.randomSelect(ls.length, ls)
 
   println(s"randomPermute($lst)=${randomPermute(lst)}")
 }

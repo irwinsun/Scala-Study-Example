@@ -1,5 +1,7 @@
 package com.sunyp.study._99.list
 
+import com.sunyp.study.utils.ListUtils
+
 import scala.concurrent.forkjoin.ThreadLocalRandom._
 
 /**
@@ -20,8 +22,6 @@ object P24 extends App {
 
   println(s"lotto($cnt,$M)=${lotto(cnt, M)}")
 
-  import P23.randomSelect
-
-  println(s"lotto($cnt,$M)=${randomSelect(cnt, List.range(1, M + 1))}")
+  println(s"lotto($cnt,$M)=${ListUtils.randomSelect(cnt, List.range(1, M + 1))}")
 
 }

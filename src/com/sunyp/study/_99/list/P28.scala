@@ -27,7 +27,7 @@ package com.sunyp.study._99.list
   */
 object P28 extends App {
 
-  val lst = List(List('a, 'g, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
+  val lst: List[List[Symbol]] = List(List('a, 'g, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
 
   def lsortBySortWith[A](src: List[List[A]]): List[List[A]] = src sortWith (_.length < _.length)
 
@@ -35,9 +35,18 @@ object P28 extends App {
 
   def lsortBySortByFunc[A](src: List[List[A]]): List[List[A]] = src sortBy (x => x.length)
 
-  println(s"lsortBySortWith($lst)=${lsortBySortWith(lst)}")
-  println(s"lsortBySortedFunc($lst)=${lsortBySortedFunc(lst)}")
-  println(s"lsortBySortByFunc($lst)=${lsortBySortByFunc(lst)}")
+
+  def lsort[A](src: List[List[A]], f: (List[List[A]]) => List[List[A]]) = f(src)
+
+  println(s"lsortBySortWith($lst)=${lsort(lst, lsortBySortWith[Symbol])}")
+  println(s"lsortBySortedFunc($lst)=${lsort(lst, lsortBySortedFunc[Symbol])}")
+  println(s"lsortBySortByFunc($lst)=${lsort(lst, lsortBySortByFunc[Symbol])}")
+
+
+//  def lsortFreq[A](ls: List[List[A]]): List[List[A]] = {
+//    val freqs = Map(encode(ls map { _.length } sort { _ < _ }) map { _.swap }:_*)
+//    ls sort { (e1, e2) => freqs(e1.length) < freqs(e2.length) }
+//  }
 
   class Outside {
     outer =>
@@ -56,5 +65,6 @@ object P28 extends App {
 
     println(outer.foo == this.foo)
   }
-new Outside
+
+  new Outside
 }
