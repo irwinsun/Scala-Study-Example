@@ -27,4 +27,6 @@ object P31 extends App {
 
   println(16.isPrime)
 
+  println(7.isPrime)
+
 }
